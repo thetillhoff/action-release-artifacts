@@ -5,11 +5,15 @@ inputs:
     description: "Name of the app"
     required: false
     default: "${{ github.event.repository.name }}"
+  GITHUB_TOKEN:
+    description: "Token that is allowed to create releases"
+    required: true
+
+permissions:
+  contents: write
 
 runs:
   using: "composite"
-  permissions:
-    contents: write
   steps:
     - name: Download all artifacts
       uses: actions/download-artifact@v2
@@ -28,4 +32,4 @@ runs:
         files: |
           ${{ inputs.APP_NAME }}_*
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
