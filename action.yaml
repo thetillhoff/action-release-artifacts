@@ -31,10 +31,7 @@ runs:
       uses: softprops/action-gh-release@v1
       with:
         body: "${{ inputs.RELEASE_BODY }}"
-        # body_path: CHANGELOG.md # TODO only last part
         prerelease: false
         fail_on_unmatched_files: true
         files: |
           ${{ inputs.APP_NAME }}_*
-      # env:
-      #   GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
