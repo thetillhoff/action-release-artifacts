@@ -27,6 +27,10 @@ runs:
       run: |
         mv ./*/${{ inputs.APP_NAME }}_* ./
 
+    - shell: bash
+      run: |
+        echo "${{ inputs.RELEASE_BODY }}"
+
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
