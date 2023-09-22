@@ -1,0 +1,31 @@
+name: Golang build
+
+inputs:
+  APP_NAME:
+    description: "Name of the app"
+    required: false
+    default: "${{ github.event.repository.name }}"
+
+runs:
+  using: "composite"
+  permissions:
+    contents: write
+  steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v2
+
+    - name: Move all artifacts to the current directory
+      shell: bash
+      run: |
+        mv ./*/${{ inputs.APP_NAME }}_* ./
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        body_path: CHANGELOG.md # TODO only last part
+        prerelease: false
+        fail_on_unmatched_files: true
+        files: |
+          ${{ inputs.APP_NAME }}_*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
