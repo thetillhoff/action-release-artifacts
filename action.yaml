@@ -1,13 +1,13 @@
 name: Golang build
 
 inputs:
+  GITHUB_TOKEN:
+    description: "Token that is allowed to create releases"
+    required: true
   APP_NAME:
     description: "Name of the app"
     required: false
     default: "${{ github.event.repository.name }}"
-  GITHUB_TOKEN:
-    description: "Token that is allowed to create releases"
-    required: true
 
 permissions:
   contents: write
