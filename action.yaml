@@ -8,6 +8,10 @@ inputs:
     description: "Name of the app"
     required: false
     default: "${{ github.event.repository.name }}"
+  RELEASE_BODY:
+    description: "Text for release"
+    required: false
+
 
 permissions:
   contents: write
@@ -26,10 +30,11 @@ runs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        body_path: CHANGELOG.md # TODO only last part
+        body: "${{ inputs.RELEASE_BODY }}"
+        # body_path: CHANGELOG.md # TODO only last part
         prerelease: false
         fail_on_unmatched_files: true
         files: |
           ${{ inputs.APP_NAME }}_*
-      env:
-        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+      # env:
+      #   GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
