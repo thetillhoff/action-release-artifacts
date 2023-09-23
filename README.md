@@ -21,7 +21,7 @@ jobs:
       RELEASE_BODY: ${{ steps.release-prerequisites.outputs.RELEASE_BODY }}
     steps:
       - id: release-prerequisites
-        uses: thetillhoff/action-release-prerequisites@main # change version
+        uses: thetillhoff/action-release-prerequisites@v0.1.0
 
   golang-build:
     needs: release-prerequisites
@@ -37,10 +37,11 @@ jobs:
         arch:
           - amd64
     steps:
-      - uses: thetillhoff/action-golang-build@main # change version
+      - uses: thetillhoff/action-golang-build@v0.1.0
         with:
           OS: "${{ matrix.os }}"
           ARCH: "${{ matrix.arch }}"
+          BUILDARGS: -ldflags="-X 'github.com/thetillhoff/webscan/cmd.version=${{ github.ref_name }}'"
 
   release-artifacts:
     needs:
@@ -50,7 +51,8 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: thetillhoff/action-release-artifacts@main # change version
+      - uses: thetillhoff/action-release-artifacts@v0.1.0
         with:
           RELEASE_BODY: "${{needs.release-prerequisites.outputs.RELEASE_BODY}}"
+
 ```
