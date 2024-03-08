@@ -29,7 +29,7 @@ runs:
         echo "${{ inputs.RELEASE_BODY }}"
 
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         body: "${{ inputs.RELEASE_BODY }}"
         prerelease: false
